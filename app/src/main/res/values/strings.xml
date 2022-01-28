@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Auth</string>
+    <string name="logo">Logo</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="register">REGISTER</string>
+    <string name="login">LOGIN</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="new_user_create_account">New user create account</string>
+    <string name="data_user">DATA USER</string>
+    <string name="name_">Name :</string>
+    <string name="email_">Email :</string>
+    <string name="created_at">Created at :</string>
+    <string name="logout">LOGOUT</string>
+</resources>
