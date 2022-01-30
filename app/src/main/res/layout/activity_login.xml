@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="30dp"
     tools:context=".LoginActivity">
 
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/logo"
         android:src="@drawable/ic_ama_new_svg" />
 
     <TextView
@@ -61,10 +62,9 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -80,21 +80,21 @@
                 android:id="@+id/forgot"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-          android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
                 android:text="@string/forgot_password"
-                android:textAllCaps="true"/>
+                android:textAllCaps="true" />
 
         </LinearLayout>
         <!--register button-->
         <Button
             android:id="@+id/btnRegister"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:text="@string/new_user_register" />
     </LinearLayout>
 

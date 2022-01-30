@@ -5,15 +5,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText etName,etEmail, etPassword, etConfirmation;
+    TextInputLayout etName,etEmail, etPassword, etConfirmation;
     Button btnRegister;
     String name, email, password, confirm;
 
@@ -42,10 +43,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void checkRegister() {
-        name = etName.getText().toString();
-        email = etEmail.getText().toString();
-        password = etPassword.getText().toString();
-        confirm = etConfirmation.getText().toString();
+        name = etName.toString();
+        email = etEmail.toString();
+        password = etPassword.toString();
+        confirm = etConfirmation.toString();
 
         if (name.isEmpty()){
             alertFail("Name is require.");
