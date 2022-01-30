@@ -10,13 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText etEmail, etPassword;
+    TextInputLayout etEmail, etPassword;
     Button btnLogin, btnRegister;
     String email, password;
     TextView forget;
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
-        forget = findViewById(R.id.forget);
+        forget = findViewById(R.id.forgot);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkLogin() {
-        email = etEmail.getText().toString();
-        password = etPassword.getText().toString();
+        email = etEmail.toString();
+        password = etPassword.toString();
         if(email.isEmpty() ){
             alertFail("Email is required.");
         }else  if( password.isEmpty()){

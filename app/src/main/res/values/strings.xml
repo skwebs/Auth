@@ -13,4 +13,7 @@
     <string name="email_">Email :</string>
     <string name="created_at">Created at :</string>
     <string name="logout">LOGOUT</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="login_to_continue">Login to continue</string>
+    <string name="new_user_register">New user? Register</string>
 </resources>
