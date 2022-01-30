@@ -33,12 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirmation = findViewById(R.id.etConfirmation);
         btnRegister = findViewById(R.id.btnRegister);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkRegister();
-            }
-        });
+        btnRegister.setOnClickListener(v -> checkRegister());
 
     }
 
@@ -72,12 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .setTitle("Success")
                 .setIcon(R.drawable.ic_check_box)
                 .setMessage(s)
-                .setPositiveButton("LOGIN", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onBackPressed();
-                    }
-                }).show();
+                .setPositiveButton("LOGIN", (dialog, which) -> onBackPressed()).show();
     }
 
     private void alertFail(String s) {
@@ -85,12 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .setTitle("Alert")
                 .setIcon(R.drawable.ic_warning)
                 .setMessage(s)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss()).show();
     }
 
 }

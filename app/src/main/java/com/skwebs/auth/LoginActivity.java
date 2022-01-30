@@ -35,26 +35,15 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         forget = findViewById(R.id.forgot);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkLogin();
-            }
-        });
+        btnLogin.setOnClickListener(v -> checkLogin());
 
-        forget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ForgetActivity.class);
-                startActivity(intent);
-            }
+        forget.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, ForgetActivity.class);
+            startActivity(intent);
         });
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        btnRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -81,11 +70,6 @@ public class LoginActivity extends AppCompatActivity {
                 .setTitle("Failed")
                 .setIcon(R.drawable.ic_warning)
                 .setMessage(s)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss()).show();
     }
 }

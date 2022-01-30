@@ -7,7 +7,6 @@
     <string name="login">LOGIN</string>
     <string name="name">Name</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="new_user_create_account">New user create account</string>
     <string name="data_user">DATA USER</string>
     <string name="name_">Name :</string>
     <string name="email_">Email :</string>
@@ -17,6 +16,4 @@
     <string name="login_to_continue">Login to continue</string>
     <string name="new_user_register">New user? Register</string>
     <string name="register_to_continue">Register to continue</string>
-    <string name="or">Or,</string>
-    <string name="existing_user_login">Existing user? Login</string>
 </resources>
