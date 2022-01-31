@@ -1,4 +1,4 @@
-package com.skwebs.auth;
+package com.skwebs.naucera;
 
 import android.content.Intent;
 import android.os.Bundle;

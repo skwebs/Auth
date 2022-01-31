@@ -1,4 +1,4 @@
-package com.skwebs.auth;
+package com.skwebs.naucera;
 
 import android.app.AlertDialog;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.skwebs.auth;
+package com.skwebs.naucera;
 
 import org.junit.Test;
 

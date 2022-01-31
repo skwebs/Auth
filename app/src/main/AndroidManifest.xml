@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.skwebs.auth">
+    package="com.skwebs.naucera">
 
 <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -12,20 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Auth">
         <activity
-            android:name="com.skwebs.auth.UserActivity"
+            android:name="com.skwebs.naucera.UserActivity"
             android:exported="false" />
         <activity
-            android:name="com.skwebs.auth.ForgetActivity"
+            android:name="com.skwebs.naucera.ForgetActivity"
             android:exported="false"
-            android:parentActivityName="com.skwebs.auth.LoginActivity" />
+            android:parentActivityName="com.skwebs.naucera.LoginActivity" />
         <activity
-            android:name="com.skwebs.auth.RegisterActivity"
-            android:parentActivityName="com.skwebs.auth.LoginActivity" />
+            android:name="com.skwebs.naucera.RegisterActivity"
+            android:parentActivityName="com.skwebs.naucera.LoginActivity" />
         <activity
-            android:name="com.skwebs.auth.LoginActivity"
+            android:name="com.skwebs.naucera.LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.skwebs.auth.MainActivity"
+            android:name="com.skwebs.naucera.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
