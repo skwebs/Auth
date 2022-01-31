@@ -62,32 +62,26 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
 
-            <!--login button-->
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="0dp"
-                android:text="@string/login" />
+
             <!--forgot button-->
             <Button
                 android:id="@+id/forgot"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginStart="20dp"
-                android:layout_weight="1"
                 android:text="@string/forgot_password"
                 android:textAllCaps="true" />
 
-        </LinearLayout>
+        <!--login button-->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:text="@string/login" />
         <!--register button-->
         <Button
             android:id="@+id/btnRegister"
@@ -95,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="@string/new_user_register" />
+            android:text="@string/new_user_register_here" />
     </LinearLayout>
 
 </LinearLayout>

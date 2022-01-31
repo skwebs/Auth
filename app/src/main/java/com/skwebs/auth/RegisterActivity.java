@@ -1,9 +1,7 @@
 package com.skwebs.auth;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,10 +36,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void checkRegister() {
-        name = etName.toString();
-        email = etEmail.toString();
-        password = etPassword.toString();
-        confirm = etConfirmation.toString();
+        name = Objects.requireNonNull(etName.getEditText()).getText().toString();
+        email = Objects.requireNonNull(etEmail.getEditText()).getText().toString();
+        password = Objects.requireNonNull(etPassword.getEditText()).getText().toString();
+        confirm = Objects.requireNonNull(etConfirmation.getEditText()).getText().toString();
 
         if (name.isEmpty()){
             alertFail("Name is require.");
