@@ -12,20 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Auth">
         <activity
-            android:name=".UserActivity"
+            android:name="com.skwebs.auth.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgetActivity"
+            android:name="com.skwebs.auth.ForgetActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName="com.skwebs.auth.LoginActivity" />
         <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".LoginActivity" />
+            android:name="com.skwebs.auth.RegisterActivity"
+            android:parentActivityName="com.skwebs.auth.LoginActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.skwebs.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.skwebs.auth.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,4 +9,5 @@
 
     <color name="blue_500">#ff007fff</color>
     <color name="blue_800">#ff084298</color>
+    <color name="brand_color">#356066</color>
 </resources>
