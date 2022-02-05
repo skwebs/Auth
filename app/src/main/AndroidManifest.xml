@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.skwebs.naucera">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.skwebs.naucera" >
 
-<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Auth">
+        android:theme="@style/Theme.Naucera"
+        tools:targetApi="m">
         <activity
-            android:name="com.skwebs.naucera.UserActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.skwebs.naucera.ForgetActivity"
-            android:exported="false"
-            android:parentActivityName="com.skwebs.naucera.LoginActivity" />
-        <activity
-            android:name="com.skwebs.naucera.RegisterActivity"
-            android:parentActivityName="com.skwebs.naucera.LoginActivity" />
-        <activity
-            android:name="com.skwebs.naucera.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.skwebs.naucera.MainActivity"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgetActivity"
+            android:exported="false"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".LoginActivity" />
     </application>
 
 </manifest>

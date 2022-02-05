@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/brand_color"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -20,16 +19,15 @@
             android:layout_height="200dp"
             android:layout_marginBottom="25dp"
             android:contentDescription="@string/logo"
-            android:src="@drawable/f_n_w_logo" />
+            android:src="@drawable/f_n_logo" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/developed_by_satish_www_skwebs_github_io"
         android:layout_marginBottom="20sp"
-        android:textColor="@color/white"
-
+        android:text="@string/developed_by_satish_www_skwebs_github_io"
+        android:textColor="?colorPrimary"
         android:textStyle="bold" />
 
 </LinearLayout>

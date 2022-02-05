@@ -3,10 +3,14 @@ package com.skwebs.naucera;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -52,12 +56,77 @@ public class RegisterActivity extends AppCompatActivity {
         }else if (!password.equals(confirm)){
             alertFail("Password and Confirm Password doesn't match.");
         }else {
+
             sendRegister();
         }
     }
 
     private void sendRegister() {
-        alertSuccess("Registered successfully.");
+        JSONObject params = new JSONObject();
+        try {
+            params.put("name",name);
+            params.put("email",email);
+            params.put("password",password);
+            params.put("password_confirmation",confirm);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        String data = params.toString();
+//        alertSuccess(data);
+        String url = getString(R.string.api_server)+"/register";
+//        alertSuccess(url);
+//================================================================================
+        Http http = new Http(RegisterActivity.this, url);
+        http.setMethod("post");
+        http.setData(data);
+        http.send();
+
+        Integer code = http.getStatusCode();
+        if (code == 201 || code == 200){
+            alertSuccess("Register successfully.");
+        }else if (code==422){
+            try {
+                JSONObject response = new JSONObject(http.getResponse());
+                String msg = response.getString("message");
+                alertFail(msg);
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }else{
+            Toast.makeText(RegisterActivity.this, "Error: "+code, Toast.LENGTH_SHORT).show();
+        }
+//        ========================================================================
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Http http = new Http(RegisterActivity.this, url);
+//                http.setMethod("post");
+//                http.setData(data);
+//                http.send();
+//                Toast.makeText(RegisterActivity.this, http.getStatusCode(), Toast.LENGTH_SHORT).show();
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Integer code = http.getStatusCode();
+//                        if (code == 201 || code == 200){
+//                            alertSuccess("Register successfully.");
+//                        }else if (code==422){
+//                            try {
+//                                JSONObject response = new JSONObject(http.getResponse());
+//                                String msg = response.getString("message");
+//                                alertFail(msg);
+//                            }catch (JSONException e){
+//                                e.printStackTrace();
+//                            }
+//                        }else{
+//                            Toast.makeText(RegisterActivity.this, "Error: "+code, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//            }
+//        });
     }
 
     private void alertSuccess(String s) {

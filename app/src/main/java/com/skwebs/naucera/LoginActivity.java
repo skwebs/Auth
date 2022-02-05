@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -49,10 +48,12 @@ public class LoginActivity extends AppCompatActivity {
         email = Objects.requireNonNull(etEmail.getEditText()).getText().toString();
         password = Objects.requireNonNull(etPassword.getEditText()).getText().toString();
         if(email.isEmpty() ){
-            alertFail("Email is required.");
-        }else  if( password.isEmpty()){
-            alertFail("Password is required.");
+            etEmail.setError("Email is required.");
+        }else if( password.isEmpty()){etEmail.setError(null);
+            etEmail.setError(null);
+            etPassword.setError("Password is required.");
         }else {
+            etPassword.setError(null);
             sendLogin();
         }
     }
@@ -63,11 +64,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void alertFail(String s) {
-        new AlertDialog.Builder(this)
-                .setTitle("Failed")
-                .setIcon(R.drawable.ic_warning)
-                .setMessage(s)
-                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss()).show();
-    }
+
 }
