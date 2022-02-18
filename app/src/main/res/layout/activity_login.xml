@@ -63,8 +63,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
         <!--forgot button-->
         <Button
             android:id="@+id/forgot"
@@ -92,5 +90,18 @@
             android:layout_marginTop="25dp"
             android:text="@string/new_user_register_here" />
     </LinearLayout>
+    <Button
+        android:id="@+id/btnWebView"
+        android:text="WebView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_show_users_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:text="@string/show_users_list"/>
+
 
 </LinearLayout>

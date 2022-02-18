@@ -1,47 +1,82 @@
 package com.skwebs.naucera;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class UserActivity extends AppCompatActivity {
 
-    TextView tvName, tvEmail, tvCreated;
-    Button btnLogout;
+
+
+    private static final String TAG = "UserActivity:";
+    final ArrayList<UserModel> userList = new ArrayList<>();
+    RequestQueue requestQueue;
+    RecyclerView userRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Objects.requireNonNull(getSupportActionBar()).setTitle("USER DATA");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Users List");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        tvName = findViewById(R.id.tvName);
-        tvEmail = findViewById(R.id.tvEmail);
-        tvCreated = findViewById(R.id.tvCreated);
-        btnLogout = findViewById(R.id.btnLogout);
+        requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
+        userRecyclerView = findViewById(R.id.user_recycler_view);
+        userRecyclerView.setHasFixedSize(true);
 
-        getUser();
-
-        btnLogout.setOnClickListener(v -> logout());
+        getUserDetails();
     }
 
+    private void getUserDetails() {
+        ProgressDialog progressDialog = ProgressDialog.show(this,null,"Please wait");
+        String url = "https://anshumemorial.in/lv8_api/api/users";
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
 
-    private void getUser() {
-        tvName.setText("NAME : -");
-        tvEmail.setText("EMAIL : -");
-        tvCreated.setText("CREATED AT : -");
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            String name = jsonObject.getString("name");
+                            String email = jsonObject.getString("email");
+
+                            userList.add(new UserModel(name, email));
+
+                            Log.d(TAG, "Name: " + name + ", email: " + email);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    userRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    UserAdapter userAdapter = new UserAdapter(this, userList);
+                    userRecyclerView.setAdapter(userAdapter);
+
+                    if(progressDialog!=null && progressDialog.isShowing())
+                        progressDialog.dismiss();
+
+                }, error -> {
+            if(progressDialog!=null && progressDialog.isShowing())
+                progressDialog.dismiss();
+            Log.d(TAG, "getUserDetails: "+error);
+        });
+
+        requestQueue.add(jsonObjectRequest);
     }
 
-    private void logout() {
-        Intent intent;
-        intent = new Intent(UserActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

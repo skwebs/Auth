@@ -9,16 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    TextInputLayout etName,etEmail, etPassword, etConfirmation;
+    TextInputLayout etName, etEmail, etPassword, etConfirmation;
     Button btnRegister;
-    String name, email, password, confirm;
+    String name, email, password, confirmation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         etName = findViewById(R.id.etName);
-        etEmail =findViewById(R.id.etEmail);
+        etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmation = findViewById(R.id.etConfirmation);
         btnRegister = findViewById(R.id.btnRegister);
@@ -40,93 +37,36 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void checkRegister() {
-        name = Objects.requireNonNull(etName.getEditText()).getText().toString();
-        email = Objects.requireNonNull(etEmail.getEditText()).getText().toString();
-        password = Objects.requireNonNull(etPassword.getEditText()).getText().toString();
-        confirm = Objects.requireNonNull(etConfirmation.getEditText()).getText().toString();
+//        name = Objects.requireNonNull(etName.getEditText()).getText().toString();
+//        email = Objects.requireNonNull(etEmail.getEditText()).getText().toString();
+//        password = Objects.requireNonNull(etPassword.getEditText()).getText().toString();
+//        confirmation = Objects.requireNonNull(etConfirmation.getEditText()).getText().toString();
 
-        if (name.isEmpty()){
-            alertFail("Name is require.");
-        }else if (email.isEmpty()){
-            alertFail("Email is require.");
-        }else if (password.isEmpty()){
-            alertFail("Password is require.");
-        }else if (confirm.isEmpty()){
-            alertFail("Confirm Password is require.");
-        }else if (!password.equals(confirm)){
+        name = String.valueOf(Objects.requireNonNull(etName.getEditText()).getText()).trim();
+        email = String.valueOf(Objects.requireNonNull(etEmail.getEditText()).getText()).trim();
+        password = String.valueOf(Objects.requireNonNull(etPassword.getEditText()).getText()).trim();
+        confirmation = String.valueOf(Objects.requireNonNull(etConfirmation.getEditText()).getText()).trim();
+
+        if (name.isEmpty()) {
+            alertFail("Name is required.");
+        } else if (email.isEmpty()) {
+            alertFail("Email is required.");
+        } else if (password.isEmpty()) {
+            alertFail("Password is required.");
+        } else if (confirmation.isEmpty()) {
+            alertFail("Confirm Password is required.");
+        } else if (!password.equals(confirmation)) {
             alertFail("Password and Confirm Password doesn't match.");
-        }else {
-
+        } else {
             sendRegister();
         }
     }
 
+    final String url = String.valueOf(R.string.api_server);
+
     private void sendRegister() {
-        JSONObject params = new JSONObject();
-        try {
-            params.put("name",name);
-            params.put("email",email);
-            params.put("password",password);
-            params.put("password_confirmation",confirm);
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
+        Toast.makeText(this, "sendRegister : "+url, Toast.LENGTH_SHORT).show();
 
-        String data = params.toString();
-//        alertSuccess(data);
-        String url = getString(R.string.api_server)+"/register";
-//        alertSuccess(url);
-//================================================================================
-        Http http = new Http(RegisterActivity.this, url);
-        http.setMethod("post");
-        http.setData(data);
-        http.send();
-
-        Integer code = http.getStatusCode();
-        if (code == 201 || code == 200){
-            alertSuccess("Register successfully.");
-        }else if (code==422){
-            try {
-                JSONObject response = new JSONObject(http.getResponse());
-                String msg = response.getString("message");
-                alertFail(msg);
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-        }else{
-            Toast.makeText(RegisterActivity.this, "Error: "+code, Toast.LENGTH_SHORT).show();
-        }
-//        ========================================================================
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Http http = new Http(RegisterActivity.this, url);
-//                http.setMethod("post");
-//                http.setData(data);
-//                http.send();
-//                Toast.makeText(RegisterActivity.this, http.getStatusCode(), Toast.LENGTH_SHORT).show();
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Integer code = http.getStatusCode();
-//                        if (code == 201 || code == 200){
-//                            alertSuccess("Register successfully.");
-//                        }else if (code==422){
-//                            try {
-//                                JSONObject response = new JSONObject(http.getResponse());
-//                                String msg = response.getString("message");
-//                                alertFail(msg);
-//                            }catch (JSONException e){
-//                                e.printStackTrace();
-//                            }
-//                        }else{
-//                            Toast.makeText(RegisterActivity.this, "Error: "+code, Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//            }
-//        });
     }
 
     private void alertSuccess(String s) {

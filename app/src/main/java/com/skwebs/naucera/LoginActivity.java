@@ -14,7 +14,7 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity {
 
     TextInputLayout etEmail, etPassword;
-    Button btnLogin, btnRegister;
+    Button btnLogin, btnRegister, btnShowUsersList;
     String email, password;
     TextView forget;
 
@@ -31,6 +31,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
         forget = findViewById(R.id.forgot);
+        btnShowUsersList = findViewById(R.id.btn_show_users_list);
+
+        btnShowUsersList.setOnClickListener(view -> {
+            Intent intent = new Intent(this, UserActivity.class);
+            startActivity(intent);
+        });
 
         btnLogin.setOnClickListener(v -> checkLogin());
 
@@ -42,11 +48,18 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
+
+        Button btnWebView = findViewById(R.id.btnWebView);
+
+        btnWebView.setOnClickListener(view -> {
+            Intent intent = new Intent(this,WebviewActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void checkLogin() {
-        email = Objects.requireNonNull(etEmail.getEditText()).getText().toString();
-        password = Objects.requireNonNull(etPassword.getEditText()).getText().toString();
+        email = Objects.requireNonNull(etEmail.getEditText()).getText().toString().trim();
+        password = Objects.requireNonNull(etPassword.getEditText()).getText().toString().trim();
         if(email.isEmpty() ){
             etEmail.setError("Email is required.");
         }else if( password.isEmpty()){etEmail.setError(null);

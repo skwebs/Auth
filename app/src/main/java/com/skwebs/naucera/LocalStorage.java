@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class LocalStorage {
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    final SharedPreferences sharedPreferences;
+    final SharedPreferences.Editor editor;
     Context context;
     String token;
 
