@@ -25,6 +25,7 @@ public class WebviewActivity extends AppCompatActivity {
     WebView myWebView;
 
     final String url = "https://anshumemorial.in";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -55,15 +56,15 @@ public class WebviewActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-        if (myWebView.canGoBack()){
+    public void onBackPressed() {
+        if (myWebView.canGoBack()) {
             myWebView.goBack();
         } else {
             new AlertDialog.Builder(this)
                     .setMessage("Are you sure to exit?")
                     .setCancelable(false)
-                    .setPositiveButton("Yes",((dialog, which) -> WebviewActivity.super.onBackPressed()))
-                    .setNegativeButton("No",null)
+                    .setPositiveButton("Yes", ((dialog, which) -> WebviewActivity.super.onBackPressed()))
+                    .setNegativeButton("No", null)
                     .show();
         }
     }
@@ -101,7 +102,7 @@ public class WebviewActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             if (url.startsWith("mailto:")) {
                 startActivity(new Intent(Intent.ACTION_SENDTO, Uri.parse(url)));
-            } else if(url.startsWith("tel:") || url.startsWith("whatsapp:")) {
+            } else if (url.startsWith("tel:") || url.startsWith("whatsapp:")) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
@@ -138,7 +139,7 @@ public class WebviewActivity extends AppCompatActivity {
         //  for javaScript Alert : get from -
         //  https://stackoverflow.com/questions/38053779/android-webview-how-to-change-javascript-alert-title-text-in-android-webview
         @Override
-        public boolean onJsAlert(WebView view, String url, String message, JsResult result){
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
             new AlertDialog.Builder(view.getContext())
 //                    .setTitle("Title")
                     .setMessage(message)
@@ -150,7 +151,7 @@ public class WebviewActivity extends AppCompatActivity {
         }
 
         @Override
-        public boolean onJsConfirm(WebView view, String url, String message, JsResult result){
+        public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
             new AlertDialog.Builder(view.getContext())
 //                    .setTitle("Application says:")
                     .setMessage(message)

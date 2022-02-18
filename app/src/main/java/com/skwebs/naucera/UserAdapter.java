@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    Context context;
+    final Context context;
     final ArrayList<UserModel> userList;
 
     public UserAdapter(Context context, ArrayList<UserModel> userList) {
@@ -32,9 +32,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.ViewHolder holder, int position) {
+        holder.tvUserId.setText(String.valueOf(position));
         holder.tvUserName.setText(userList.get(position).getName());
         holder.tvUserEmail.setText(userList.get(position).getEmail());
-        holder.tvSerialNum.setText(String.valueOf(position + 1));
     }
 
     @Override
@@ -44,15 +44,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private static final String TAG = "UserActivity:";
+        final TextView tvUserId;
         final TextView tvUserName;
         final TextView tvUserEmail;
-        final TextView tvSerialNum;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            tvUserId = itemView.findViewById(R.id.tv_user_id);
             tvUserName = itemView.findViewById(R.id.tv_user_name);
             tvUserEmail = itemView.findViewById(R.id.tv_user_email);
-            tvSerialNum = itemView.findViewById(R.id.tv_serial_num);
 
             itemView.setOnClickListener(this);
         }
@@ -65,11 +66,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             String name = userModel.getName();
             String email = userModel.getEmail();
 
-            Log.d(TAG, "onClick: "+position);
+            Log.d(TAG, "onClick: " + position);
 
             Intent intent = new Intent(context, UserDetailsActivity.class);
             intent.putExtra("name", name);
-            intent.putExtra("email",email);
+            intent.putExtra("email", email);
 
             context.startActivity(intent);
 

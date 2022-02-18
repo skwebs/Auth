@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         Button btnWebView = findViewById(R.id.btnWebView);
 
         btnWebView.setOnClickListener(view -> {
-            Intent intent = new Intent(this,WebviewActivity.class);
+            Intent intent = new Intent(this, WebviewActivity.class);
             startActivity(intent);
         });
     }
@@ -60,12 +60,13 @@ public class LoginActivity extends AppCompatActivity {
     private void checkLogin() {
         email = Objects.requireNonNull(etEmail.getEditText()).getText().toString().trim();
         password = Objects.requireNonNull(etPassword.getEditText()).getText().toString().trim();
-        if(email.isEmpty() ){
+        if (email.isEmpty()) {
             etEmail.setError("Email is required.");
-        }else if( password.isEmpty()){etEmail.setError(null);
+        } else if (password.isEmpty()) {
+            etEmail.setError(null);
             etEmail.setError(null);
             etPassword.setError("Password is required.");
-        }else {
+        } else {
             etPassword.setError(null);
             sendLogin();
         }

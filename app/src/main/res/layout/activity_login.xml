@@ -90,18 +90,19 @@
             android:layout_marginTop="25dp"
             android:text="@string/new_user_register_here" />
     </LinearLayout>
+
     <Button
         android:id="@+id/btnWebView"
-        android:text="WebView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="WebView" />
 
     <Button
         android:id="@+id/btn_show_users_list"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:text="@string/show_users_list"/>
+        android:text="@string/show_users_list" />
 
 
 </LinearLayout>

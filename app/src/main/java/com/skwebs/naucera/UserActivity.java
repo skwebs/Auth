@@ -21,7 +21,6 @@ import java.util.Objects;
 public class UserActivity extends AppCompatActivity {
 
 
-
     private static final String TAG = "UserActivity:";
     final ArrayList<UserModel> userList = new ArrayList<>();
     RequestQueue requestQueue;
@@ -43,7 +42,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void getUserDetails() {
-        ProgressDialog progressDialog = ProgressDialog.show(this,null,"Please wait");
+        ProgressDialog progressDialog = ProgressDialog.show(this, null, "Please wait");
         String url = "https://anshumemorial.in/lv8_api/api/users";
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -67,13 +66,13 @@ public class UserActivity extends AppCompatActivity {
                     UserAdapter userAdapter = new UserAdapter(this, userList);
                     userRecyclerView.setAdapter(userAdapter);
 
-                    if(progressDialog!=null && progressDialog.isShowing())
+                    if (progressDialog != null && progressDialog.isShowing())
                         progressDialog.dismiss();
 
                 }, error -> {
-            if(progressDialog!=null && progressDialog.isShowing())
+            if (progressDialog != null && progressDialog.isShowing())
                 progressDialog.dismiss();
-            Log.d(TAG, "getUserDetails: "+error);
+            Log.d(TAG, "getUserDetails: " + error);
         });
 
         requestQueue.add(jsonObjectRequest);

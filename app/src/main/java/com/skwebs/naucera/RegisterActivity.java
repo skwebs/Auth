@@ -37,10 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void checkRegister() {
-//        name = Objects.requireNonNull(etName.getEditText()).getText().toString();
-//        email = Objects.requireNonNull(etEmail.getEditText()).getText().toString();
-//        password = Objects.requireNonNull(etPassword.getEditText()).getText().toString();
-//        confirmation = Objects.requireNonNull(etConfirmation.getEditText()).getText().toString();
 
         name = String.valueOf(Objects.requireNonNull(etName.getEditText()).getText()).trim();
         email = String.valueOf(Objects.requireNonNull(etEmail.getEditText()).getText()).trim();
@@ -65,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
     final String url = String.valueOf(R.string.api_server);
 
     private void sendRegister() {
-        Toast.makeText(this, "sendRegister : "+url, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "sendRegister : " + url, Toast.LENGTH_SHORT).show();
 
     }
 

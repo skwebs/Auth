@@ -21,7 +21,4 @@ public class UserModel {
         this.name = name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
