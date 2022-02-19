@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnLogin.setOnClickListener(v -> checkLogin());
+        btnLogin.setOnClickListener(v -> validEditInputText());
 
         forget.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, ForgetActivity.class);
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void checkLogin() {
+    private void validEditInputText() {
         email = Objects.requireNonNull(etEmail.getEditText()).getText().toString().trim();
         password = Objects.requireNonNull(etPassword.getEditText()).getText().toString().trim();
         if (email.isEmpty()) {
@@ -84,12 +84,12 @@ public class LoginActivity extends AppCompatActivity {
             etPassword.setError("Password is required.");
         } else {
             etPassword.setError(null);
-            sendLogin();
+            authenticateLogin();
 
         }
     }
 
-    private void sendLogin() {
+    private void authenticateLogin() {
         String apiLoginUrl = apiBaseUrl + "login";
 
         // Showing progress dialog at user registration time.
@@ -106,25 +106,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         String status = responseJsonObject.getString("status");
                         if (status.equals("success")) {
-                            String userToken, userName, userEmail;
-
-                            JSONObject userJsonObject = responseJsonObject.getJSONObject("user");
-
-                            int userId = userJsonObject.getInt("id");
-                            userName = userJsonObject.getString("name");
-                            userEmail = userJsonObject.getString("email");
-                            userToken = responseJsonObject.getString("token");
-
-                            finish();
-
-                            Intent intent = new Intent(this, DashboardActivity.class);
-
-                            intent.putExtra("userId", userId);
-                            intent.putExtra("userName", userName);
-                            intent.putExtra("userEmail", userEmail);
-                            intent.putExtra("userToken", userToken);
-
-                            startActivity(intent);
+                            sendLoginUserToDashboard(responseJsonObject);
                         }
 
                     } catch (JSONException e) {
@@ -155,5 +137,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
+    }
+
+    private void sendLoginUserToDashboard(JSONObject responseJsonObject) throws JSONException {
+        String userToken, userName, userEmail;
+
+        JSONObject userJsonObject = responseJsonObject.getJSONObject("user");
+
+        int userId = userJsonObject.getInt("id");
+        userName = userJsonObject.getString("name");
+        userEmail = userJsonObject.getString("email");
+        userToken = responseJsonObject.getString("token");
+
+        finish();
+
+        Intent intent = new Intent(this, DashboardActivity.class);
+
+        intent.putExtra("userId", userId);
+        intent.putExtra("userName", userName);
+        intent.putExtra("userEmail", userEmail);
+        intent.putExtra("userToken", userToken);
+
+        startActivity(intent);
     }
 }
