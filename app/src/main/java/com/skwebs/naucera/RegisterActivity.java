@@ -61,6 +61,12 @@ public class RegisterActivity extends AppCompatActivity {
     final String url = String.valueOf(R.string.api_server);
 
     private void sendRegister() {
+
+        String url = "https://anshumemorial.in/lv8_api/api/users";
+
+
+
+
         Toast.makeText(this, "sendRegister : " + url, Toast.LENGTH_SHORT).show();
 
     }
@@ -80,5 +86,13 @@ public class RegisterActivity extends AppCompatActivity {
                 .setMessage(s)
                 .setPositiveButton("OK", (dialog, which) -> dialog.dismiss()).show();
     }
+
+
+
+
+
+
+
+
 
 }

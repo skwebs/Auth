@@ -17,9 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserDetailsActivity"
             android:exported="false"
-            android:parentActivityName=".UserActivity"/>
+            android:parentActivityName=".UserActivity" />
         <activity
             android:name=".WebviewActivity"
             android:exported="false" />
@@ -38,7 +41,7 @@
         <activity
             android:name=".UserActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity"/>
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".ForgetActivity"
             android:exported="false"
