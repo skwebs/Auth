@@ -50,12 +50,13 @@ public class UserActivity extends AppCompatActivity {
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
+                            int id = jsonObject.getInt("id");
                             String name = jsonObject.getString("name");
                             String email = jsonObject.getString("email");
 
-                            userList.add(new UserModel(name, email));
+                            userList.add(new UserModel(id, name, email));
 
-                            Log.d(TAG, "Name: " + name + ", email: " + email);
+                            Log.d(TAG, "id: "+id+" | Name: " + name + ", | email: " + email);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -32,7 +32,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.ViewHolder holder, int position) {
-        holder.tvUserId.setText(String.valueOf(position));
+        holder.tvSerialNum.setText("S.N.: " + (position + 1));
+        holder.tvUserId.setText(String.valueOf(userList.get(position).getId()));
         holder.tvUserName.setText(userList.get(position).getName());
         holder.tvUserEmail.setText(userList.get(position).getEmail());
     }
@@ -44,6 +45,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private static final String TAG = "UserActivity:";
+        final  TextView tvSerialNum;
         final TextView tvUserId;
         final TextView tvUserName;
         final TextView tvUserEmail;
@@ -51,6 +53,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            tvSerialNum = itemView.findViewById(R.id.tv_serial_num);
             tvUserId = itemView.findViewById(R.id.tv_user_id);
             tvUserName = itemView.findViewById(R.id.tv_user_name);
             tvUserEmail = itemView.findViewById(R.id.tv_user_email);
@@ -63,12 +66,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             int position = this.getAdapterPosition();
             UserModel userModel = userList.get(position);
 
+            int id = userModel.getId();
             String name = userModel.getName();
             String email = userModel.getEmail();
 
             Log.d(TAG, "onClick: " + position);
 
             Intent intent = new Intent(context, UserDetailsActivity.class);
+            intent.putExtra("id", id);
             intent.putExtra("name", name);
             intent.putExtra("email", email);
 

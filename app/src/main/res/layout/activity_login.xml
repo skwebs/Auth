@@ -95,7 +95,8 @@
         android:id="@+id/btnWebView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WebView" />
+        android:text="WebView"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btn_show_users_list"

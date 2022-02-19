@@ -2,11 +2,17 @@ package com.skwebs.naucera;
 
 public class UserModel {
 
+    int id;
     String name, email;
 
-    public UserModel(String name, String email) {
+    public UserModel(int id, String name, String email) {
+        this.id = id;
         this.name = name;
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -16,9 +22,4 @@ public class UserModel {
     public String getEmail() {
         return email;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 }
