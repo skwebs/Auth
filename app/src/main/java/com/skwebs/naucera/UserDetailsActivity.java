@@ -13,7 +13,7 @@ public class UserDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Users List");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("User Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         super.onCreate(savedInstanceState);
