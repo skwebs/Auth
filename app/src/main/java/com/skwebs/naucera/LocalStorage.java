@@ -9,8 +9,8 @@ public class LocalStorage {
     Context context;
     String token;
 
-    public LocalStorage(Context context) {
-        context = this.context;
+    public LocalStorage() {
+        Context context = this.context;
         sharedPreferences = context.getSharedPreferences("STORAGE_LOGIN_API", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }

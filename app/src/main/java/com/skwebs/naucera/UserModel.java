@@ -2,8 +2,9 @@ package com.skwebs.naucera;
 
 public class UserModel {
 
-    int id;
-    String name, email;
+    final int id;
+    final String name;
+    final String email;
 
     public UserModel(int id, String name, String email) {
         this.id = id;

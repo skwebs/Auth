@@ -43,7 +43,7 @@ public class UserActivity extends AppCompatActivity {
 
     private void getUserDetails() {
         ProgressDialog progressDialog = ProgressDialog.show(this, null, "Please wait");
-        String url = "https://anshumemorial.in/lv8_api/api/users";
+        String url = "http://192.168.29.122:8000/api/users";
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
 

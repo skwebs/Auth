@@ -24,6 +24,7 @@ import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static final String TAG = "RegisterActivity:";
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
     TextInputLayout etName, etEmail, etPassword, etConfirmation;
@@ -76,8 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void sendRegister() {
 
-        String url = "https://anshumemorial.in/lv8_api/api/users";
-
+//        String url = "https://anshumemorial.in/lv8_api/api/users";
+        String url = "http://192.168.29.122:8000/api/users";
         // Showing progress dialog at user registration time.
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
@@ -90,11 +91,44 @@ public class RegisterActivity extends AppCompatActivity {
                     try {
                         JSONObject responseJsonObject = new JSONObject(response);
 
-                        String status = responseJsonObject.getString("status");
-                        if (status.equals("success")) {
-                            sendRegisteredUserToDashboard(responseJsonObject);
+                        boolean error = responseJsonObject.getBoolean("error");
+                        if (error) {
+                            JSONObject errorObj = new JSONObject(responseJsonObject.getString("errors"));
+//                            if name has error
+                            if (errorObj.has("name")) {
+                                etName.setError(errorObj.getString("name"));
+                                Toast.makeText(this, errorObj.getString("name"), Toast.LENGTH_SHORT).show();
+                            }else
+//                            if email has error
+                            if (errorObj.has("email")) {
+                                etEmail.setError(errorObj.getString("email"));
+                                Toast.makeText(this, errorObj.getString("email"), Toast.LENGTH_SHORT).show();
+//                                remove name error
+                                etName.setError(null);
+                            }else
+//                            if password has error
+                            if (errorObj.has("password")) {
+                                etPassword.setError(errorObj.getString("password"));
+                                Toast.makeText(this, errorObj.getString("password"), Toast.LENGTH_SHORT).show();
+//                                remove email error
+                                etEmail.setError(null);
+                            }else
+//                            if confirm password has error
+                            if (errorObj.has("password_confirmation")) {
+                                etConfirmation.setError(errorObj.getString("password_confirmation"));
+                                Toast.makeText(this, errorObj.getString("password_confirmation"), Toast.LENGTH_SHORT).show();
+//                                remove password email
+                                etPassword.setError(null);
+                            }
+                            Log.d(TAG, "errorObj:: " + errorObj.getString("email"));
+
                         } else {
-                            Toast.makeText(this, responseJsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            etName.setError(null);
+                            etEmail.setError(null);
+                            etPassword.setError(null);
+                            etConfirmation.setError(null);
+
+                            sendRegisteredUserToDashboard(responseJsonObject);
                         }
 
                     } catch (JSONException e) {
@@ -109,6 +143,10 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     // Showing error message if something goes wrong.
                     Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "sendRegister: " + error.getMessage());
+                    Log.d(TAG, "sendRegister: " + error);
+                    Log.d(TAG, "sendRegister: " + error.networkResponse);
+                    error.printStackTrace();
                 }) {
             @Override
             protected Map<String, String> getParams() {
