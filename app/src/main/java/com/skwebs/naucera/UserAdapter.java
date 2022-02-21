@@ -32,7 +32,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.ViewHolder holder, int position) {
-        holder.tvSerialNum.setText(String.valueOf (position + 1));
+        holder.tvSerialNum.setText(String.valueOf(position + 1));
         holder.tvUserId.setText(String.valueOf(userList.get(position).getId()));
         holder.tvUserName.setText(userList.get(position).getName());
         holder.tvUserEmail.setText(userList.get(position).getEmail());
@@ -45,7 +45,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private static final String TAG = "UserActivity:";
-        final  TextView tvSerialNum;
+        final TextView tvSerialNum;
         final TextView tvUserId;
         final TextView tvUserName;
         final TextView tvUserEmail;

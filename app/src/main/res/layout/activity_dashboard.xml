@@ -32,19 +32,20 @@
                 android:layout_below="@+id/tv_user_id"
                 android:text="Satish Kumar Sharma"
                 android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/tv_user_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="satishnaucera@gmail.com"
-                android:layout_below="@+id/tv_user_name"/>
+                android:layout_below="@+id/tv_user_name"
+                android:text="satishnaucera@gmail.com" />
 
             <TextView
                 android:id="@+id/tv_user_token"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="17|awt3xE2DLjos7dfPL7Y7FORsq95HTQY2kkBkNlZT"
-                android:layout_below="@+id/tv_user_email"/>
+                android:layout_below="@+id/tv_user_email"
+                android:text="17|awt3xE2DLjos7dfPL7Y7FORsq95HTQY2kkBkNlZT" />
 
         </RelativeLayout>
 

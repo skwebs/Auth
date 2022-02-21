@@ -21,17 +21,18 @@
                 android:id="@+id/iv_left_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
-                    android:background="@drawable/bg_circle"
                     android:layout_width="wrap_content"
-                    android:layout_height="80dp">
+                    android:layout_height="80dp"
+                    android:background="@drawable/bg_circle">
 
                     <ImageView
                         android:id="@+id/iv"
-                        android:paddingTop="5dp"
                         android:layout_width="60dp"
                         android:layout_height="55dp"
                         android:contentDescription="Left side line"
+                        android:paddingTop="5dp"
                         android:src="@drawable/ic_round_person" />
 
                     <TextView
@@ -39,11 +40,11 @@
                         android:layout_width="60dp"
                         android:layout_height="20dp"
                         android:layout_below="@+id/iv"
-                        android:textAlignment="center"
-                        android:textStyle="bold"
-                        android:text="100"
                         android:layout_marginBottom="5dp"
-                        android:textColor="@color/white" />
+                        android:text="100"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>

@@ -24,7 +24,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        userId = intent.getIntExtra("userId",0);
+        userId = intent.getIntExtra("userId", 0);
         userName = intent.getStringExtra("userName");
         userEmail = intent.getStringExtra("userEmail");
         userToken = intent.getStringExtra("userToken");

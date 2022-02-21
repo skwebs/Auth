@@ -58,7 +58,7 @@ public class UserActivity extends AppCompatActivity {
 
                             userList.add(new UserModel(id, name, email));
 
-                            Log.d(TAG, "id: "+id+" | Name: " + name + ", | email: " + email);
+                            Log.d(TAG, "id: " + id + " | Name: " + name + ", | email: " + email);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
