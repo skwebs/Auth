@@ -1,18 +1,24 @@
 package com.skwebs.naucera;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 public class DashboardActivity extends AppCompatActivity {
     String userToken, userName, userEmail;
     int userId;
-    TextView tvUserId, tvUserName, tvUserEmail, tvUserToken;
-
+    TextView tvUserName, tvUserEmail;
+    Button btnLogout;
+    SharedPreferences sharedPref;
+    boolean isLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,21 +28,41 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        Intent intent = getIntent();
+        isLoggedIn = false;
+        btnLogout = findViewById(R.id.btn_logout);
 
-        userId = intent.getIntExtra("userId", 0);
-        userName = intent.getStringExtra("userName");
-        userEmail = intent.getStringExtra("userEmail");
-        userToken = intent.getStringExtra("userToken");
+        sharedPref = getApplicationContext().getSharedPreferences("session", Context.MODE_PRIVATE);
 
-        tvUserId = findViewById(R.id.tv_user_id);
+        isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
+        userId = sharedPref.getInt("id", 0);
+        userName = sharedPref.getString("name", null);
+        userEmail = sharedPref.getString("email", null);
+        userToken = sharedPref.getString("token", null);
+
         tvUserName = findViewById(R.id.tv_user_name);
         tvUserEmail = findViewById(R.id.tv_user_email);
-        tvUserToken = findViewById(R.id.tv_user_token);
 
-        tvUserId.setText(String.valueOf(userId));
-        tvUserName.setText(String.valueOf(userName));
-        tvUserEmail.setText(String.valueOf(userEmail));
-        tvUserToken.setText(String.valueOf(userToken));
+        tvUserName.setText(String.format("Hi, %s", userName));
+        tvUserEmail.setText(MessageFormat.format("Your email id is {0}", userEmail));
+
+        btnLogout.setOnClickListener(view -> {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.clear();
+            editor.apply();
+//           redirect to login activity
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (!isLoggedIn) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

@@ -1,7 +1,9 @@
 package com.skwebs.naucera;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -30,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView forget;
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
+    SharedPreferences sharedPref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         forget = findViewById(R.id.forgot);
         btnShowUsersList = findViewById(R.id.btn_show_users_list);
+
+        sharedPref = getSharedPreferences("session", Context.MODE_PRIVATE);
 
         API_BASE_URL = getString(R.string.API_BASE_URL);
 
@@ -160,15 +166,26 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendLoginUserToDashboard(JSONObject responseJsonObject) throws JSONException {
+//        initialized variables
         String userToken, userName, userEmail;
-
+//       initialize and store user data in json object
         JSONObject userJsonObject = responseJsonObject.getJSONObject("user");
-
+//        store particular data in respective variable
         int userId = userJsonObject.getInt("id");
         userName = userJsonObject.getString("name");
         userEmail = userJsonObject.getString("email");
         userToken = responseJsonObject.getString("token");
+//        store data in shared preferences to maintain session
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("isLoggedIn",true);
+        editor.putInt("id",userId);
+        editor.putString("name",userName);
+        editor.putString("email",userEmail);
+        editor.putString("token", userToken);
+        editor.apply();
 
+        Toast.makeText(this, "User data saved in session.", Toast.LENGTH_SHORT).show();
+        Log.d("Session:", "User data saved in session.");
         finish();
 
         Intent intent = new Intent(this, DashboardActivity.class);
@@ -179,5 +196,7 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("userToken", userToken);
 
         startActivity(intent);
+
+        finish();
     }
 }

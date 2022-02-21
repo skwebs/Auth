@@ -3,6 +3,7 @@ package com.skwebs.naucera;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -30,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout etName, etEmail, etPassword, etConfirmation;
     Button btnRegister;
     String name, email, password, confirmation;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Creating string request with post method.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
-                    Log.d("Register", "UserLogin: " + response);
+                    Log.d("Register", "response: " + response);
 
                     try {
                         JSONObject responseJsonObject = new JSONObject(response);
@@ -125,14 +127,23 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                                 Log.d(TAG, "errorObj:: " + errorObj.getString("email"));
 
-                            } else {
-                                etName.setError(null);
-                                etEmail.setError(null);
-                                etPassword.setError(null);
-                                etConfirmation.setError(null);
-
-                                sendRegisteredUserToDashboard(responseJsonObject);
                             }
+                        }else {
+//                            REGISTRATION SUCCESSFUL COMPLETED THEN
+//                            remove all error messages
+                            etName.setError(null);
+                            etEmail.setError(null);
+                            etPassword.setError(null);
+                            etConfirmation.setError(null);
+//                            show toast for successful registration
+                            Toast.makeText(this, "You have registered successfully!", Toast.LENGTH_SHORT).show();
+//                            store email to shared preference
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("email",email);
+                            editor.apply();
+//                            redirect to login activity
+                            Intent intent = new Intent(this, LoginActivity.class);
+                            startActivity(intent);
                         }
 
                     } catch (JSONException e) {
@@ -147,9 +158,6 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     // Showing error message if something goes wrong.
                     Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show();
-                    Log.d(TAG, "sendRegister: " + error.getMessage());
-                    Log.d(TAG, "sendRegister: " + error);
-                    Log.d(TAG, "sendRegister: " + error.networkResponse);
                     error.printStackTrace();
                 }) {
             @Override
@@ -183,28 +191,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
-    }
-
-    private void sendRegisteredUserToDashboard(JSONObject responseJsonObject) throws JSONException {
-        String userToken, userName, userEmail;
-
-        JSONObject userJsonObject = responseJsonObject.getJSONObject("user");
-
-        int userId = userJsonObject.getInt("id");
-        userName = userJsonObject.getString("name");
-        userEmail = userJsonObject.getString("email");
-        userToken = responseJsonObject.getString("token");
-
-        finish();
-
-        Intent intent = new Intent(this, DashboardActivity.class);
-
-        intent.putExtra("userId", userId);
-        intent.putExtra("userName", userName);
-        intent.putExtra("userEmail", userEmail);
-        intent.putExtra("userToken", userToken);
-
-        startActivity(intent);
     }
 
     private void alertFail(String s) {

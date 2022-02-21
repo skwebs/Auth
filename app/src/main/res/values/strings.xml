@@ -14,4 +14,8 @@
     <string name="developed_by_satish_www_skwebs_github_io">Developed by Satish (www.skwebs.github.io)</string>
     <string name="show_users_list">Show Users List</string>
     <string name="API_BASE_URL">https://anshumemorial.in/lv8_api/api</string>
+    <string name="welcome">Welcome Back</string>
+    <string name="in_naucera_family">in Naucera family.</string>
+    <string name="logout">Logout</string>
+    <string name="left_side_line">Left side line</string>
 </resources>
