@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     //    variables declaration
     TextInputLayout etEmail, etPassword;
     Button btnLogin, btnRegister, btnShowUsersList;
-    String email, password, apiBaseUrl;
+    String email, password, API_BASE_URL;
     TextView forget;
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 //        variable initialisation
-        apiBaseUrl = "https://anshumemorial.in/lv8_api/api/";
         requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -47,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         forget = findViewById(R.id.forgot);
         btnShowUsersList = findViewById(R.id.btn_show_users_list);
+
+        API_BASE_URL = getString(R.string.API_BASE_URL);
 
         progressDialog = new ProgressDialog(this);
 //        event on button
@@ -65,12 +66,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
-
-        Button btnWebView = findViewById(R.id.btnWebView);
-        btnWebView.setOnClickListener(view -> {
-            Intent intent = new Intent(this, WebviewActivity.class);
-            startActivity(intent);
-        });
     }
 
     private void validEditInputText() {
@@ -80,47 +75,72 @@ public class LoginActivity extends AppCompatActivity {
             etEmail.setError("Email is required.");
         } else if (password.isEmpty()) {
             etEmail.setError(null);
-            etEmail.setError(null);
             etPassword.setError("Password is required.");
         } else {
             etPassword.setError(null);
             authenticateLogin();
-
         }
     }
 
     private void authenticateLogin() {
-        String apiLoginUrl = apiBaseUrl + "login";
-
         // Showing progress dialog at user registration time.
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
 
         // Creating string request with post method.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, apiLoginUrl,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, API_BASE_URL + "/login",
                 response -> {
-                    Log.d("Login", "UserLogin: " + response);
-
+                    Log.d("LoginActivity:", "response: " + response);
                     try {
                         JSONObject responseJsonObject = new JSONObject(response);
 
-                        String status = responseJsonObject.getString("status");
-                        if (status.equals("success")) {
+                        boolean error = responseJsonObject.getBoolean("error");
+                        if (error) {
+//                            if any message
+                            if (responseJsonObject.has("message")) {
+                                etEmail.setError(responseJsonObject.getString("message"));
+                                etPassword.setError(responseJsonObject.getString("message"));
+                                Log.d("LoginActivity:", "message: " + responseJsonObject.getString("message"));
+                                Toast.makeText(this, responseJsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+
+
+//                            if has errors key in
+                            if (responseJsonObject.has("errors")) {
+                                JSONObject errorObj = new JSONObject(responseJsonObject.getString("errors"));
+
+//                            if email has error
+                                if (errorObj.has("email")) {
+                                    etEmail.setError(errorObj.getString("email"));
+                                    Toast.makeText(this, errorObj.getString("email"), Toast.LENGTH_SHORT).show();
+                                }
+//                            if password has error
+                                if (errorObj.has("password")) {
+                                    etPassword.setError(errorObj.getString("password"));
+                                    Toast.makeText(this, errorObj.getString("password"), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } else {
+                            etEmail.setError(null);
+                            etPassword.setError(null);
+
                             sendLoginUserToDashboard(responseJsonObject);
                         }
 
                     } catch (JSONException e) {
-                        Log.d("Login", "UserLogin: " + e);
+                        Log.d("LoginActivity:", "JSONException: " + e);
                         e.printStackTrace();
                     }
+
                     // Hiding the progress dialog after all task complete.
                     progressDialog.dismiss();
                 },
                 error -> {
+                    Log.d("LoginActivity:", "ServerError: " + error);
                     // Hiding the progress dialog after all task complete.
                     progressDialog.dismiss();
                     // Showing error message if something goes wrong.
-                    Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {

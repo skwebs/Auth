@@ -15,6 +15,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -43,7 +44,8 @@ public class UserActivity extends AppCompatActivity {
 
     private void getUserDetails() {
         ProgressDialog progressDialog = ProgressDialog.show(this, null, "Please wait");
-        String url = "http://192.168.29.122:8000/api/users";
+        String BASE_API_URL = getString(R.string.API_BASE_URL);
+        String url = MessageFormat.format("{0}/users", BASE_API_URL);
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
 

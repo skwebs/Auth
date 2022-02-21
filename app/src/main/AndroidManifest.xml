@@ -24,9 +24,6 @@
             android:exported="false"
             android:parentActivityName=".UserActivity" />
         <activity
-            android:name=".WebviewActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

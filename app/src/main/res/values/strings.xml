@@ -7,16 +7,11 @@
     <string name="login">LOGIN</string>
     <string name="name">Name</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="data_user">DATA USER</string>
-    <string name="name_">Name :</string>
-    <string name="email_">Email :</string>
-    <string name="created_at">Created at :</string>
-    <string name="logout">LOGOUT</string>
     <string name="forgot_password">Forgot Password ?</string>
     <string name="login_to_continue">Login to continue</string>
     <string name="register_to_continue">Register to continue</string>
     <string name="new_user_register_here">New user? Register here</string>
     <string name="developed_by_satish_www_skwebs_github_io">Developed by Satish (www.skwebs.github.io)</string>
-    <string name="api_server">http://192.168.29.122:8000/api</string>
     <string name="show_users_list">Show Users List</string>
+    <string name="API_BASE_URL">https://anshumemorial.in/lv8_api/api</string>
 </resources>
