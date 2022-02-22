@@ -177,10 +177,10 @@ public class LoginActivity extends AppCompatActivity {
         userToken = responseJsonObject.getString("token");
 //        store data in shared preferences to maintain session
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean("isLoggedIn",true);
-        editor.putInt("id",userId);
-        editor.putString("name",userName);
-        editor.putString("email",userEmail);
+        editor.putBoolean("isLoggedIn", true);
+        editor.putInt("id", userId);
+        editor.putString("name", userName);
+        editor.putString("email", userEmail);
         editor.putString("token", userToken);
         editor.apply();
 

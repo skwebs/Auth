@@ -14,9 +14,6 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPref;
     boolean isLoggedIn;
-    String userName, userEmail, userToken;
-    int userId;
-
 
 
     @Override
@@ -38,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         sharedPref = getApplicationContext().getSharedPreferences("session", Context.MODE_PRIVATE);
 
-        isLoggedIn = sharedPref.getBoolean("isLoggedIn",false);
+        isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
 
         Intent intent;
-        if (isLoggedIn){
+        if (isLoggedIn) {
             intent = new Intent(MainActivity.this, DashboardActivity.class);
-        }else {
+        } else {
             intent = new Intent(MainActivity.this, LoginActivity.class);
         }
         startActivity(intent);

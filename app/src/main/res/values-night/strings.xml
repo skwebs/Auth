@@ -18,4 +18,10 @@
     <string name="in_naucera_family">in Naucera family.</string>
     <string name="logout">Logout</string>
     <string name="left_side_line">Left side line</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="change_phone_no">Change Phone no.</string>
 </resources>

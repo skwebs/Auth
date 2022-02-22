@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "4635362204",
+    "project_id": "naucera-app-phone-auth",
+    "storage_bucket": "naucera-app-phone-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4635362204:android:1de05899d33b1734dc7e59",
+        "android_client_info": {
+          "package_name": "com.skwebs.naucera"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4635362204-6u0t62b4r4hh6dluoeder91mlsdvg31v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdUT5oIIKVKyGggz2g7p-AzLrbPnvE_qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4635362204-6u0t62b4r4hh6dluoeder91mlsdvg31v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
