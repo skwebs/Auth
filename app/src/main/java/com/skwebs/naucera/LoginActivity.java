@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -165,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void sendLoginUserToDashboard(JSONObject responseJsonObject) throws JSONException {
+    private void sendLoginUserToDashboard(@NonNull JSONObject responseJsonObject) throws JSONException {
 //        initialized variables
         String userToken, userName, userEmail;
 //       initialize and store user data in json object

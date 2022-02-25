@@ -46,7 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     LinearLayout layoutEnterMobile, layoutVerifyOtp, layoutRegisterDetails;
     private FirebaseAuth mAuth;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +112,25 @@ public class RegisterActivity extends AppCompatActivity {
     private void sendOtp() {
         progressDialog.setMessage("Sending OTP.");
         progressDialog.show();
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        //                on auto verification
+        // This callback will be invoked in two situations:
+        // 1 - Instant verification. In some cases the phone number can be instantly
+        //     verified without needing to send or enter a verification code.
+        // 2 - Auto-retrieval. On some devices Google Play services can automatically
+        //     detect the incoming verification SMS and perform verification without
+        //                //     user action.
+        //
+        //                signInWithPhoneAuthCredential(credential);
+        // This callback is invoked in an invalid request for verification is made,
+        // for instance if the the phone number format is not valid.
+        //
+        // Show a message and update the UI
+        //                on otp sent hide mobile input layout and show otp verification layout
+        // The SMS verification code has been sent to the provided phone number, we
+        // now need to ask the user to enter the code and then construct a credential
+        //                // by combining the code with a verification ID.
+        //                // Save verification ID and resending token so we can use them later
+        PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
@@ -200,9 +217,6 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         layoutVerifyOtp.setVisibility(View.GONE);
                         layoutRegisterDetails.setVisibility(View.VISIBLE);
-//                        Intent intent = new Intent(RegisterActivity.this, DashboardActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
                     } else {
                         Toast.makeText(RegisterActivity.this, "OTP is not valid.", Toast.LENGTH_SHORT).show();
                     }
@@ -333,7 +347,6 @@ public class RegisterActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("X-Requested-With", "XMLHttpRequest");
-//                headers.put("Content-Type", "application/json");
                 headers.put("Accept", "application/json");
                 return headers;
             }
