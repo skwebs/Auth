@@ -9,17 +9,25 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.Objects;
 
 public class ForgetActivity extends AppCompatActivity {
 
+    private static final String TAG = "ForgetActivity:";
     TextView mobileNumber;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -31,7 +39,13 @@ public class ForgetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
 
+        Button btnSubscribe = findViewById(R.id.btn_subscribe);
+
         mobileNumber = findViewById(R.id.mobile_number);
+
+        btnSubscribe.setOnClickListener(view -> {
+            FirebaseMessaging.getInstance().subscribeToTopic("NauceraAppTopic");
+        });
 
         GetNumber();
     }
@@ -62,6 +76,27 @@ public class ForgetActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{READ_SMS, READ_PHONE_NUMBERS, READ_PHONE_STATE}, 100);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    // Get new FCM registration token
+                    String token = task.getResult();
+
+                    // Log and toast
+
+                    Log.d(TAG, "token: "+token);
+                    Toast.makeText(ForgetActivity.this, "fmc token: "+token, Toast.LENGTH_SHORT).show();
+                });
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
