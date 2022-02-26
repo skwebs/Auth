@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Showing error message if something goes wrong.
                     Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                 }) {
+            @NonNull
             @Override
             protected Map<String, String> getParams() {
 
@@ -176,25 +177,15 @@ public class LoginActivity extends AppCompatActivity {
         userName = userJsonObject.getString("name");
         userEmail = userJsonObject.getString("email");
         userToken = responseJsonObject.getString("token");
-//        store data in shared preferences to maintain session
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean("isLoggedIn", true);
-        editor.putInt("id", userId);
-        editor.putString("name", userName);
-        editor.putString("email", userEmail);
-        editor.putString("token", userToken);
-        editor.apply();
+
+        UserSession  userSession = UserSession.getInstance(getApplicationContext());
+        userSession.setUserDetails(true, userId, userName, userEmail, userToken);
 
         Toast.makeText(this, "User data saved in session.", Toast.LENGTH_SHORT).show();
         Log.d("Session:", "User data saved in session.");
         finish();
 
         Intent intent = new Intent(this, DashboardActivity.class);
-
-        intent.putExtra("userId", userId);
-        intent.putExtra("userName", userName);
-        intent.putExtra("userEmail", userEmail);
-        intent.putExtra("userToken", userToken);
 
         startActivity(intent);
 

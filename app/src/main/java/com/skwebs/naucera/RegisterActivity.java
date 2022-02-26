@@ -25,6 +25,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import org.jetbrains.annotations.Contract;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -343,6 +344,7 @@ public class RegisterActivity extends AppCompatActivity {
                 return params;
             }
 
+            @NonNull
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
@@ -351,6 +353,8 @@ public class RegisterActivity extends AppCompatActivity {
                 return headers;
             }
 
+            @NonNull
+            @Contract(pure = true)
             @Override
             public String getBodyContentType() {
                 return "application/x-www-form-urlencoded; charset=UTF-8";

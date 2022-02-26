@@ -1,8 +1,6 @@
 package com.skwebs.naucera;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.WindowManager;
 
@@ -12,9 +10,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPref;
-    boolean isLoggedIn;
-
+  UserSession userSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +20,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        isLoggedIn = false;
+        userSession = UserSession.getInstance(this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
-        sharedPref = getApplicationContext().getSharedPreferences("session", Context.MODE_PRIVATE);
-
-        isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
 
         Intent intent;
-        if (isLoggedIn) {
+        if (userSession.isLoggedIn()) {
             intent = new Intent(MainActivity.this, DashboardActivity.class);
         } else {
             intent = new Intent(MainActivity.this, LoginActivity.class);
