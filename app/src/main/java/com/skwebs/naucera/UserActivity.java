@@ -54,9 +54,10 @@ public class UserActivity extends AppCompatActivity {
                             JSONObject jsonObject = response.getJSONObject(i);
                             int id = jsonObject.getInt("id");
                             String name = jsonObject.getString("name");
+                            String  mobile = jsonObject.getString("mobile");
                             String email = jsonObject.getString("email");
 
-                            userList.add(new UserModel(id, name, email));
+                            userList.add(new UserModel(id, name,mobile, email));
 
                             Log.d(TAG, "id: " + id + " | Name: " + name + ", | email: " + email);
 

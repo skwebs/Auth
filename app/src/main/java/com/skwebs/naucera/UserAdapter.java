@@ -34,6 +34,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull UserAdapter.ViewHolder holder, int position) {
         holder.tvSerialNum.setText(String.valueOf(position + 1));
         holder.tvUserId.setText(String.valueOf(userList.get(position).getId()));
+        holder.tvUserMobile.setText(String.valueOf(userList.get(position).getMobile()));
         holder.tvUserName.setText(userList.get(position).getName());
         holder.tvUserEmail.setText(userList.get(position).getEmail());
     }
@@ -47,6 +48,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         private static final String TAG = "UserActivity:";
         final TextView tvSerialNum;
         final TextView tvUserId;
+        final TextView tvUserMobile;
         final TextView tvUserName;
         final TextView tvUserEmail;
 
@@ -55,8 +57,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             tvSerialNum = itemView.findViewById(R.id.tv_serial_num);
             tvUserId = itemView.findViewById(R.id.tv_user_id);
+
             tvUserName = itemView.findViewById(R.id.tv_user_name);
             tvUserEmail = itemView.findViewById(R.id.tv_user_email);
+            tvUserMobile = itemView.findViewById(R.id.tv_user_mobile);
 
             itemView.setOnClickListener(this);
         }
@@ -68,6 +72,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             int id = userModel.getId();
             String name = userModel.getName();
+            String mobile = userModel.getMobile();
             String email = userModel.getEmail();
 
             Log.d(TAG, "onClick: " + position);
@@ -75,6 +80,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             Intent intent = new Intent(context, UserDetailsActivity.class);
             intent.putExtra("id", id);
             intent.putExtra("name", name);
+            intent.putExtra("mobile", mobile);
             intent.putExtra("email", email);
 
             context.startActivity(intent);

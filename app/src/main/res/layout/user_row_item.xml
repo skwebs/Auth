@@ -24,24 +24,24 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_height="105dp"
                     android:background="@drawable/bg_circle">
 
                     <ImageView
                         android:id="@+id/iv"
-                        android:layout_width="60dp"
-                        android:layout_height="55dp"
+                        android:layout_width="70dp"
+                        android:layout_height="65dp"
                         android:contentDescription="@string/left_side_line"
-                        android:paddingTop="5dp"
+                        android:paddingTop="11dp"
                         android:src="@drawable/ic_round_person" />
 
                     <TextView
                         android:id="@+id/tv_serial_num"
-                        android:layout_width="60dp"
+                        android:layout_width="70dp"
                         android:layout_height="20dp"
                         android:layout_below="@+id/iv"
-                        android:layout_marginBottom="5dp"
-                        android:text=""
+                        android:layout_marginTop="5dp"
+                        android:text="001"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
@@ -60,7 +60,7 @@
                     android:id="@+id/tv_user_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="001"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -68,14 +68,22 @@
                     android:id="@+id/tv_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="Satish Kumar Sharma"
                     android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/tv_user_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="9xxxxxxxxx"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="contact@naucera.co.in"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
