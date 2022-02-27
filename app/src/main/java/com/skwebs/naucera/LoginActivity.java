@@ -1,5 +1,7 @@
 package com.skwebs.naucera;
 
+import static com.skwebs.naucera.Constants.API_BASE_URL;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +30,8 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity {
     //    variables declaration
     TextInputLayout etEmail, etPassword;
-    Button btnLogin, btnRegister, btnShowUsersList;
-    String email, password, API_BASE_URL;
+    Button btnLogin, btnRegister;
+    String email, password;
     TextView forget;
     RequestQueue requestQueue;
     ProgressDialog progressDialog;
@@ -50,18 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
         forget = findViewById(R.id.forgot);
-        btnShowUsersList = findViewById(R.id.btn_show_users_list);
 
         sharedPref = getSharedPreferences("session", Context.MODE_PRIVATE);
 
-        API_BASE_URL = getString(R.string.API_BASE_URL);
-
         progressDialog = new ProgressDialog(this);
 //        event on button
-        btnShowUsersList.setOnClickListener(view -> {
-            Intent intent = new Intent(this, UserActivity.class);
-            startActivity(intent);
-        });
 
         btnLogin.setOnClickListener(v -> validEditInputText());
 

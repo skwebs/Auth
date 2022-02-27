@@ -1,5 +1,8 @@
 package com.skwebs.naucera;
 
+import static com.skwebs.naucera.Constants.API_BASE_URL;
+import static com.skwebs.naucera.Constants.APIs_BASE_URL;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -154,6 +157,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
+                progressDialog.dismiss();
 
                 Toast.makeText(RegisterActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -164,6 +168,12 @@ public class RegisterActivity extends AppCompatActivity {
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     Toast.makeText(RegisterActivity.this, "Invalid request", Toast.LENGTH_SHORT).show();
                 } else if (e instanceof FirebaseTooManyRequestsException) {
+//                    when exceed sms quota
+                    alertFail( "Something goes wrong. So we skipped mobile number verification process.\nContinue...");
+                    etMobile.setError(null);
+                    btnSendOtp.setVisibility(View.GONE);
+                    layoutRegisterDetails.setVisibility(View.VISIBLE);
+
                     Toast.makeText(RegisterActivity.this, "The SMS quota for the project has been exceeded", Toast.LENGTH_SHORT).show();
                 }
 
@@ -250,8 +260,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void sendRegister() {
 
-        String BASE_API_URL = getString(R.string.API_BASE_URL);
-        String url = BASE_API_URL + "/users";
+
+        String url = API_BASE_URL + "/users";
         // Showing progress dialog at user registration time.
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
@@ -275,6 +285,15 @@ public class RegisterActivity extends AppCompatActivity {
                                     etName.setError(errorObj.getString("name"));
                                     Toast.makeText(this, errorObj.getString("name"), Toast.LENGTH_SHORT).show();
                                 }
+//                                if name has error
+                                if (errorObj.has("mobile")) {
+                                    etMobile.setError(errorObj.getString("mobile"));
+                                    if (errorObj.getString("mobile") == "The mobile has already been taken."){
+                                        changeMobileNum();
+                                        alertFail("Mobile number "+mobileNum+" is already exist.");
+                                    }
+                                    Toast.makeText(this, errorObj.getString("mobile"), Toast.LENGTH_SHORT).show();
+                                }
 //                            if email has error
                                 if (errorObj.has("email")) {
                                     etEmail.setError(errorObj.getString("email"));
@@ -296,13 +315,12 @@ public class RegisterActivity extends AppCompatActivity {
 //                                remove password email
                                     etPassword.setError(null);
                                 }
-                                Log.d(TAG, "errorObj:: " + errorObj.getString("email"));
-
                             }
                         } else {
 //                            REGISTRATION SUCCESSFUL COMPLETED THEN
 //                            remove all error messages
                             etName.setError(null);
+                            etMobile.setError(null);
                             etEmail.setError(null);
                             etPassword.setError(null);
                             etConfirmation.setError(null);
@@ -338,6 +356,7 @@ public class RegisterActivity extends AppCompatActivity {
                 // The firs argument should be same sa your MySQL database table columns.
                 params.put("name", name);
                 params.put("email", email);
+                params.put("mobile", mobileNum);
                 params.put("password", password);
                 params.put("password_confirmation", confirmation);
 

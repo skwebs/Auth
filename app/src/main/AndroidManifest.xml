@@ -41,7 +41,7 @@
         <activity
             android:name=".UserActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName=".DashboardActivity" />
         <activity
             android:name=".ForgetActivity"
             android:exported="false"

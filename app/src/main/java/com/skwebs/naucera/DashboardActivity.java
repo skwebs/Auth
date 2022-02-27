@@ -29,7 +29,7 @@ public class DashboardActivity extends AppCompatActivity {
     UserSession userSes;
 
     TextView tvUserName, tvUserEmail;
-    Button btnLogout;
+    Button btnLogout, btnShowUsersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +40,17 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         progressDialog = new ProgressDialog(this);
 
+        btnShowUsersList = findViewById(R.id.btn_show_users_list);
         btnLogout = findViewById(R.id.btn_logout);
         requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
 
         tvUserName = findViewById(R.id.tv_user_name);
         tvUserEmail = findViewById(R.id.tv_user_email);
 
+        btnShowUsersList.setOnClickListener(view -> {
+            Intent intent = new Intent(this, UserActivity.class);
+            startActivity(intent);
+        });
         btnLogout.setOnClickListener(view -> {
 
             logout();
