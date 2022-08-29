@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     SharedPreferences sharedPref;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

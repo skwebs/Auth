@@ -1,7 +1,6 @@
 package com.skwebs.naucera;
 
 import static com.skwebs.naucera.Constants.API_BASE_URL;
-import static com.skwebs.naucera.Constants.APIs_BASE_URL;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -288,7 +287,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                                if name has error
                                 if (errorObj.has("mobile")) {
                                     etMobile.setError(errorObj.getString("mobile"));
-                                    if (errorObj.getString("mobile") == "The mobile has already been taken."){
+                                    if (errorObj.getString("mobile").equals("The mobile has already been taken.")){
                                         changeMobileNum();
                                         alertFail("Mobile number "+mobileNum+" is already exist.");
                                     }

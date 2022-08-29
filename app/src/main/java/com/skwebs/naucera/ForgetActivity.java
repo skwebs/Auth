@@ -19,8 +19,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Objects;
@@ -43,9 +41,7 @@ public class ForgetActivity extends AppCompatActivity {
 
         mobileNumber = findViewById(R.id.mobile_number);
 
-        btnSubscribe.setOnClickListener(view -> {
-            FirebaseMessaging.getInstance().subscribeToTopic("NauceraAppTopic");
-        });
+        btnSubscribe.setOnClickListener(view -> FirebaseMessaging.getInstance().subscribeToTopic("NauceraAppTopic"));
 
         GetNumber();
     }

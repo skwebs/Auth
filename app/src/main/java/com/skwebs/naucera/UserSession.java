@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 public class UserSession {
     private static UserSession userSession;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    final SharedPreferences sharedPreferences;
+    final SharedPreferences.Editor editor;
 
     private UserSession(Context context) {
         sharedPreferences = context.getSharedPreferences("USER_SESSION", Context.MODE_PRIVATE);
